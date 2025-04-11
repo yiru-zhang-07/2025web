@@ -1,0 +1,76 @@
+.animate-fade-in-up {
+  animation: fadeInUp 0.8s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 4s ease-in-out infinite;
+}
+
+.delay-200 {
+  animation-delay: 200ms;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.1; }
+  50% { opacity: 0.2; }
+}
+
+@keyframes jump {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+.hero-section {
+  cursor: none;
+}
+
+.hero-section:hover {
+  cursor: none;
+}
+
+.hero-section * {
+  cursor: none;
+}
+
+.hero-cursor {
+  width: 8px;
+  height: 8px;
+  background-color: white;
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  animation: jump 1s ease-in-out infinite;
+  mix-blend-mode: difference;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+  transform: translate(-50%, -50%);
+}
+
+.hero-cursor::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: 1px solid white;
+  border-radius: 50%;
+  animation: pulse 2s ease-out infinite;
+  opacity: 0.5;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); opacity: 0.5; }
+  50% { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 0; }
+} 
