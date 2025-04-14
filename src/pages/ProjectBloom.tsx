@@ -11,7 +11,7 @@ const THEME = {
   border: '#BDD1CF',
   background: '#ECF4F4',
   white: '#FBFAF8',
-  text: '#113C21',
+  text: '#271E1E',
 };
 
 const ProjectBloom = () => {
@@ -54,8 +54,6 @@ const ProjectBloom = () => {
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
-      
-      // Update active section based on scroll position
       const sections = document.querySelectorAll('section[id]');
       const scrollY = window.pageYOffset;
       
@@ -89,9 +87,7 @@ const ProjectBloom = () => {
         top: offsetPosition,
         behavior: "smooth"
       });
-      
-      // Manually set active section when clicking
-      setActiveSection(sectionId);
+            setActiveSection(sectionId);
     }
   };
 
@@ -142,11 +138,11 @@ const ProjectBloom = () => {
           <nav className="space-y-2">
             {[
               { id: 'overview', label: 'Overview' },
-              { id: 'challenge', label: 'Challenge' },
               { id: 'research', label: 'Research' },
+              { id: 'challenge', label: 'Challenge' },
               { id: 'solution', label: 'Solution' },
               { id: 'process', label: 'Process' },
-              { id: 'impact', label: 'Impact & Next Steps' }
+              { id: 'learnings', label: 'Learnings' }
             ].map(item => (
               <button
                 key={item.id}
@@ -267,8 +263,8 @@ const ProjectBloom = () => {
       </section>
 
       {/* Introduction Section */}
-      <section className="py-20" style={{ background: THEME.white }}>
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="introduction"className="py-20" style={{ background: THEME.white }}>
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             {/* Text Content */}
             <motion.div
@@ -326,7 +322,7 @@ const ProjectBloom = () => {
         </section>
   {/* Research Section */}
   <section id="research" className="py-20" style={{ background: THEME.background }}>
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -447,7 +443,7 @@ const ProjectBloom = () => {
         className="py-20"
         style={{ background: THEME.white }}
       >
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -652,8 +648,8 @@ const ProjectBloom = () => {
       </motion.section>
 
       {/* Opportunity Section */}
-      <section className="py-20" style={{ background: THEME.background }}>
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="opportunity"className="py-20" style={{ background: THEME.background }}>
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
           
             <h2 className="text-3xl font-bold mb-12" style={{ color: THEME.text }}>
               The Opportunity
@@ -667,9 +663,9 @@ const ProjectBloom = () => {
           </div>
         </section>
 
-      {/* Solution Section - Increased GIF size */}
+      {/* Solution Section */}
       <section id="solution" className="py-20" style={{ background: THEME.white }}>
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -796,13 +792,13 @@ const ProjectBloom = () => {
                     <div className={`relative rounded-xl overflow-hidden ${
                       index % 2 === 1 ? 'lg:order-first' : ''
                     }`}>
-                      <div className="aspect-[16/9]">
+                      <div className="aspect-[9/16]">
                         <img 
                           src={feature.image}
                           alt={feature.title}
                           className="w-full h-full object-contain"
                           style={{ 
-                            maxHeight: '600px', // Increased from 500px to 600px
+                            maxHeight: '700px', // Increased from 500px to 600px
                             width: '100%'
                           }}
                         />
@@ -831,7 +827,7 @@ const ProjectBloom = () => {
 
       {/* Process Section - Updated background color */}
       <section id="process" className="py-20" style={{ background: THEME.background }}>
-        <div className="max-w-7xl mx-auto px-6">
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -939,8 +935,8 @@ const ProjectBloom = () => {
       
 
       {/* The Outcome Section */}
-      <section className="py-20" style={{ background: THEME.white }}>
-        <div className="max-w-7xl mx-auto px-6">
+      <section id="outcome" className="py-20" style={{ background: THEME.white }}>
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -1004,8 +1000,9 @@ const ProjectBloom = () => {
           </motion.div>
         </div>
       </section>
-      <section id="impact" className="py-20" style={{ background: THEME.white }}>
-        <div className="max-w-7xl mx-auto px-6">
+      
+      <section id="learnings" className="py-20" style={{ background: THEME.background }}>
+        <div className="max-w-7xl mx-auto px-6 md:px-8 lg:px-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
