@@ -1,88 +1,120 @@
-
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { motion } from 'framer-motion';
 
 const Navigation: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
+  const [activeSection, setActiveSection] = useState('home');
   const location = useLocation();
-  const isHomePage = location.pathname === '/';
-  
+
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      const heroSection = document.getElementById('hero');
+      const projectsSection = document.getElementById('projects');
       
-      // Update active section based on scroll position (only on homepage)
-      if (isHomePage) {
-        const sections = ['hero', 'about', 'projects'];
-        const currentSection = sections.find(section => {
-          const element = document.getElementById(section);
-          if (!element) return false;
-          
-          const rect = element.getBoundingClientRect();
-          return rect.top <= 100 && rect.bottom > 100;
-        });
+      if (heroSection) {
+        const heroRect = heroSection.getBoundingClientRect();
+        setIsScrolled(heroRect.bottom < 0);
         
-        if (currentSection) {
-          setActiveSection(currentSection);
+        // Only check sections if we're on the home page
+        if (location.pathname === '/') {
+          // Check if we're at the top of the page
+          if (window.scrollY === 0) {
+            setActiveSection('home');
+          } else if (projectsSection) {
+            const projectsRect = projectsSection.getBoundingClientRect();
+            // If projects section is in view
+            if (projectsRect.top <= 100 && projectsRect.bottom >= 100) {
+              setActiveSection('projects');
+            }
+          }
         }
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [isHomePage]);
-  
+  }, [location.pathname]);
+
+  const handleScrollToSection = (sectionId: string) => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      section.scrollIntoView({ behavior: 'smooth' });
+    }
+  };
+
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const textColor = isScrolled ? 'text-foreground' : 'text-white';
+  const navBackground = isScrolled ? 'bg-white shadow-sm' : 'bg-transparent';
+
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-in-out px-6 md:px-10 ${
-        isScrolled ? 'py-3 bg-white/80 backdrop-blur-md shadow-sm' : 'py-5 bg-transparent'
-      }`}
-    >
-      <div className="max-w-7xl mx-auto flex items-center justify-between">
-        <Link to="/" className="text-xl font-semibold tracking-tight">
-          <img src="/public/Logo.png" alt="YZ Logo" className="h-10 w-auto" />
-        </Link>
-        
-        {/* Navigation Tabs */}
-        <nav className="flex items-center space-x-8">
-          {isHomePage ? (
-            <>
-              <a 
-                href="#hero" 
-                className={`nav-link text-sm font-medium ${activeSection === 'hero' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
+    <nav className={`fixed top-0 left-0 right-0 z-50 transition-colors duration-300 ${navBackground}`}>
+      <div className="max-w-7xl mx-auto px-6">
+        <div className="flex items-center justify-between h-16">
+          <Link to="/" onClick={handleScrollToTop} className="flex items-center">
+            <motion.img 
+              src={isScrolled ? "/images/Logo.png" : "/images/icon-yz-w.png"}
+              alt="Yiru"
+              className="h-8 w-auto"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            />
+          </Link>
+          
+          <div className="flex items-center space-x-8">
+            <Link to="/" onClick={handleScrollToTop}>
+              <motion.span 
+                className={`text-sm font-medium ${textColor} relative group`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Home
-              </a>
-              <a 
-                href="#about" 
-                className={`nav-link text-sm font-medium ${activeSection === 'about' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
+                <span className="relative z-10">Home</span>
+                <span className={`absolute inset-0 ${location.pathname === '/' && activeSection === 'home' ? 'w-full' : 'w-0 group-hover:w-full'} transition-all duration-300 bg-gradient-to-r ${isScrolled ? 'from-pink-500/30 via-purple-500/30 to-blue-500/30' : 'from-pink-500 via-purple-500 to-blue-500'}`} />
+              </motion.span>
+            </Link>
+            <Link to="/" onClick={() => {
+              if (location.pathname !== '/') {
+                // If not on home page, wait for navigation then scroll
+                setTimeout(() => {
+                  const projectsSection = document.getElementById('projects');
+                  if (projectsSection) {
+                    projectsSection.scrollIntoView({ behavior: 'smooth' });
+                  }
+                }, 100);
+              } else {
+                // If already on home page, just scroll
+                const projectsSection = document.getElementById('projects');
+                if (projectsSection) {
+                  projectsSection.scrollIntoView({ behavior: 'smooth' });
+                }
+              }
+            }}>
+              <motion.span 
+                className={`text-sm font-medium ${textColor} relative group`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                About
-              </a>
-              <a 
-                href="#projects" 
-                className={`nav-link text-sm font-medium ${activeSection === 'projects' ? 'text-primary after:scale-x-100' : 'text-muted-foreground'}`}
+                <span className="relative z-10">Projects</span>
+                <span className={`absolute inset-0 ${location.pathname === '/' && activeSection === 'projects' ? 'w-full' : 'w-0 group-hover:w-full'} transition-all duration-300 bg-gradient-to-r ${isScrolled ? 'from-pink-500/30 via-purple-500/30 to-blue-500/30' : 'from-pink-500 via-purple-500 to-blue-500'}`} />
+              </motion.span>
+            </Link>
+            <Link to="/about">
+              <motion.span 
+                className={`text-sm font-medium ${textColor} relative group`}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                Projects
-              </a>
-            </>
-          ) : (
-            <>
-              <Link to="/" className="nav-link text-sm font-medium">
-                Home
-              </Link>
-              <Link to="/#about" className="nav-link text-sm font-medium">
-                About
-              </Link>
-              <Link to="/#projects" className="nav-link text-sm font-medium">
-                Projects
-              </Link>
-            </>
-          )}
-        </nav>
+                <span className="relative z-10">About</span>
+                <span className={`absolute inset-0 ${location.pathname === '/about' ? 'w-full' : 'w-0 group-hover:w-full'} transition-all duration-300 bg-gradient-to-r ${isScrolled ? 'from-pink-500/30 via-purple-500/30 to-blue-500/30' : 'from-pink-500 via-purple-500 to-blue-500'}`} />
+              </motion.span>
+            </Link>
+          </div>
+        </div>
       </div>
-    </header>
+    </nav>
   );
 };
 

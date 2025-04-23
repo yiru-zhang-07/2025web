@@ -1,38 +1,37 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ArrowRight } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ArrowRight, Section } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import BloomCover from '@/images/Bloom_Cover.jpg';
-import TalentCover from '@/images/Talent_Cover.jpg';
-import RidEaseCover from '@/images/RidEase_Cover.jpg';
-import LFGCover from '@/images/LFG_lap_cover.jpg';
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from '@/components/ui/dialog';
+import { Input } from '@/components/ui/input';
 
 const projectsData = [{
   id: 1,
-  title: "Bloom App Design",
+  title: "Bloom -- App Design",
   category: "UX/UI Design, Motion Design",
-  imageUrl: BloomCover,
+  imageUrl: "images/Bloom_Cover.jpg",
   description: "A mobile application that connects gardeners in a social network to share and grow.",
   link: "/projects/bloom"
 }, {
   id: 2,
-  title: "Talent Assessment",
+  title: "Talent Assessment -- UX Research",
   category: "UX Research,Interviews",
-  imageUrl: TalentCover,
+  imageUrl: "images/Talent_Cover.jpg",
   description: "Conducting interviews and affinity mapping to identify pain points and provide suggestions.",
-  link: "/projects/talent-assessment"
+  link: "/projects/talent-assessment",
+  password: "0"
 }, {
   id: 3,
-  title: "RidEase",
+  title: "RidEase -- Ride-sharing App Design",
   category: "App Design, UX Research",
-  imageUrl: RidEaseCover,
+  imageUrl: "images/RidEase_Cover.jpg",
   description: "Designed a carpooling app with a focus on safety and user experience.",
   link: "/projects/ridease"
 }, {
   id: 4,
-  title: "Learning For Good",
+  title: "Learning For Good -- Web Redesign",
   category: "Web Design, Education",
-  imageUrl: LFGCover,
+  imageUrl: "images/LFG_lap_cover.jpg",
   description: "What I learned that helps improve online learning experiences for schools.",
   link: "/project/learning-for-good"
 }];
@@ -41,7 +40,27 @@ const Projects: React.FC = () => {
   const sectionRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const projectRefs = useRef<Array<HTMLAnchorElement | null>>([]);
-  
+  const [showPasswordDialog, setShowPasswordDialog] = useState(false);
+  const [password, setPassword] = useState('');
+  const [selectedProject, setSelectedProject] = useState<typeof projectsData[0] | null>(null);
+  const navigate = useNavigate();
+
+  const handleProjectClick = (e: React.MouseEvent, project: typeof projectsData[0]) => {
+    if (project.password) {
+      e.preventDefault();
+      setSelectedProject(project);
+      setShowPasswordDialog(true);
+    }
+  };
+
+  const handlePasswordSubmit = () => {
+    if (selectedProject && password === selectedProject.password) {
+      navigate(selectedProject.link);
+      setShowPasswordDialog(false);
+      setPassword('');
+    }
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
@@ -79,7 +98,7 @@ const Projects: React.FC = () => {
           <span className="inline-block px-3 py-1 text-xs font-medium tracking-wider rounded-full bg-white mb-4">
             FEATURED WORK
           </span>
-          <h2 className="text-3xl md:text-4xl font-bold">Selected Projects</h2>
+          <h2 className="text-3xl md:text-4xl font-bold">The projects I've been working on.</h2>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -87,6 +106,7 @@ const Projects: React.FC = () => {
             <Link 
               key={project.id} 
               to={project.link} 
+              onClick={(e) => handleProjectClick(e, project)}
               className="group block opacity-0 transform translate-y-8 hover:no-underline bg-white rounded-3xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300" 
               ref={el => projectRefs.current[index] = el as HTMLAnchorElement} 
               style={{
@@ -132,6 +152,31 @@ const Projects: React.FC = () => {
           ))}
         </div>
       </div>
+
+      <Dialog open={showPasswordDialog} onOpenChange={setShowPasswordDialog}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Enter Password</DialogTitle>
+            <DialogDescription>
+              Please enter the password to view this project.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="flex flex-col gap-4">
+            <Input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter password"
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') {
+                  handlePasswordSubmit();
+                }
+              }}
+            />
+            <Button onClick={handlePasswordSubmit}>Submit</Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 };

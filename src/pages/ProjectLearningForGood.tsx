@@ -86,7 +86,7 @@ const ProjectLearningForGood = () => {
   };
 
   // Remove the import statement and use the image path directly
-  const LFGCover = "/src/images/LFG_Cover.png";
+  const LFGCover = "/public/images/LFG_Cover.png";
 
   const cardVariants = {
     hidden: { opacity: 0, y: 20 },
@@ -198,7 +198,7 @@ const ProjectLearningForGood = () => {
                   group-hover:blur-xl transition-all duration-700"></div>
                 <div className="relative">
                   <img 
-                    src="/src/images/LFG_Cover.png"
+                    src="images/LFG_Cover.png"
                     alt="Learning For Good Cover"
                     className="w-full h-auto rounded-xl shadow-2xl transform transition-all duration-700 
                       group-hover:scale-[1.1] group-hover:rotate-1"
@@ -339,7 +339,7 @@ const ProjectLearningForGood = () => {
               >
                 <div className="aspect-[4/3] w-full bg-[#00b5cc]/10 flex items-center justify-center">
                   <img 
-                    src={LFGChallenge}
+                    src="images/LFG_challenge.png"
                     alt="Learning For Good Challenge"
                     className="w-full h-full object-cover rounded-xl"
                   />
@@ -453,7 +453,7 @@ const ProjectLearningForGood = () => {
 
             <div className="relative rounded-xl overflow-hidden">
               <img 
-                src={LFGCourses}
+                src="images/LFG_courses.png"
                 alt="Learning For Good Courses"
                 className="w-full h-auto object-contain rounded-xl"
               />
@@ -476,7 +476,7 @@ const ProjectLearningForGood = () => {
 
             <div className="relative rounded-xl overflow-hidden">
               <img 
-                src={LFGZoomMeeting}
+                src="images/LFG_Zoom_meeting2.png"
                 alt="Learning For Good Zoom Meeting"
                 className="w-full h-auto object-contain rounded-xl"
               />

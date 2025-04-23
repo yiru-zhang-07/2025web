@@ -9,6 +9,7 @@ import ProjectRidEase from "./pages/ProjectRidEase";
 import ProjectBloom from "./pages/ProjectBloom";
 import ProjectTalentAssessment from "./pages/ProjectTalentAssessment";
 import ProjectLearningForGood from './pages/ProjectLearningForGood';
+import About from './pages/About';
 
 const queryClient = new QueryClient();
 
@@ -20,6 +21,7 @@ const App = () => (
       <HashRouter>
         <Routes>
           <Route path="/" element={<Index />} />
+          <Route path="/about" element={<About />} />
           <Route path="/projects/ridease" element={<ProjectRidEase />} />
           <Route path="/projects/bloom" element={<ProjectBloom />} />
           <Route path="/projects/talent-assessment" element={<ProjectTalentAssessment />} />

@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Navigation from "../components/Navigation";
 import Footer from "../components/Footer";
-import JakeImg from "../images/RidEase_Jake.png";
-import EmilyImg from "../images/RidEase_Emily.png";
-import DianneImg from "../images/RidEase_Dianne.png";
 
 const ProjectRidEase: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -184,7 +181,7 @@ const ProjectRidEase: React.FC = () => {
               <div className="flex-1 flex justify-center md:justify-end mt-8 md:mt-0">
                 <div className="w-full max-w-md aspect-square bg-white/10 rounded-xl overflow-hidden">
                   <img 
-                    src="/RidEaseCover.jpg" 
+                    src="images/RidEase_Cover.jpg" 
                     alt="RidEase Cover" 
                     className="w-full h-full object-cover"
                   />
@@ -375,7 +372,7 @@ const ProjectRidEase: React.FC = () => {
                       <div className="flex items-center gap-4 mb-4">
                         <div className="w-16 h-16 rounded-full overflow-hidden">
                           <img 
-                            src={JakeImg} 
+                            src="images/RidEase_Jake.png" 
                             alt="Jake" 
                             className="w-full h-full object-cover"
                           />
@@ -404,7 +401,7 @@ const ProjectRidEase: React.FC = () => {
                       <div className="flex items-center gap-4 mb-4">
                         <div className="w-16 h-16 rounded-full overflow-hidden">
                           <img 
-                            src={EmilyImg} 
+                            src="images/RidEase_Emily.png" 
                             alt="Emily" 
                             className="w-full h-full object-cover"
                           />
@@ -433,7 +430,7 @@ const ProjectRidEase: React.FC = () => {
                       <div className="flex items-center gap-4 mb-4">
                         <div className="w-16 h-16 rounded-full overflow-hidden">
                           <img 
-                            src={DianneImg} 
+                            src="images/RidEase_Dianne.png" 
                             alt="Dianne" 
                             className="w-full h-full object-cover"
                           />

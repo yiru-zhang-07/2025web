@@ -133,9 +133,10 @@ const ProjectBloom = () => {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
-          className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg p-4"
+          className="bg-white/60 backdrop-blur-sm rounded-lg shadow-lg p-4 xl:p-4 group-hover:p-4"
         >
-          <nav className="space-y-2">
+          {/* Text-based navigation for larger screens */}
+          <nav className="space-y-2 hidden xl:block">
             {[
               { id: 'overview', label: 'Overview' },
               { id: 'research', label: 'Research' },
@@ -158,6 +159,45 @@ const ProjectBloom = () => {
               </button>
             ))}
           </nav>
+
+          {/* Dot-based navigation for smaller screens with hover expansion */}
+          <div className="group xl:hidden">
+            <nav className="space-y-1 transition-all duration-300 group-hover:space-y-2">
+              {[
+                { id: 'overview', label: 'Overview' },
+                { id: 'research', label: 'Research' },
+                { id: 'challenge', label: 'Challenge' },
+                { id: 'solution', label: 'Solution' },
+                { id: 'process', label: 'Process' },
+                { id: 'learnings', label: 'Learnings' }
+              ].map(item => (
+                <div key={item.id} className="group/item relative">
+                  <button
+                    onClick={() => scrollToSection(item.id)}
+                    className={`flex items-center gap-2 transition-all duration-300 w-2 group-hover:w-full group-hover:px-3 group-hover:py-2 group-hover:rounded-md`}
+                    style={{ 
+                      backgroundColor: activeSection === item.id ? THEME.primary : 'transparent',
+                      color: activeSection === item.id ? THEME.white : THEME.text,
+                      boxShadow: activeSection === item.id ? '0 2px 4px rgba(0,0,0,0.1)' : 'none'
+                    }}
+                  >
+                    <div 
+                      className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                        activeSection === item.id ? 'scale-150' : 'scale-100'
+                      }`}
+                      style={{ 
+                        backgroundColor: activeSection === item.id ? THEME.primary : THEME.text,
+                        opacity: activeSection === item.id ? 1 : 0.5
+                      }}
+                    />
+                    <span className="text-sm opacity-0 group-hover:opacity-100 transition-opacity duration-200 whitespace-nowrap">
+                      {item.label}
+                    </span>
+                  </button>
+                </div>
+              ))}
+            </nav>
+          </div>
         </motion.div>
       </div>
 
@@ -196,7 +236,13 @@ const ProjectBloom = () => {
                     </h1>
                     <p className="text-xl text-white/80 max-w-2xl animate-fade-in-up delay-200">
                       A mobile application that helps people meet other gardening lovers, get gardening ideas, tips and more
-              </p>
+                    </p>
+                    <p className="text-xl text-white/80 max-w-2xl animate-fade-in-up delay-200">
+                    Awarded New York Product Design Awards 2024
+                    <br />
+                    Category:Interactive Design (IxD) - Motion Graphics
+                    </p>
+              
             </div>
           </div>
 
@@ -209,10 +255,25 @@ const ProjectBloom = () => {
                     transition={{ duration: 0.6 }}
                   >
                     <img 
-                      src="/src/images/Bloom_Cover.jpg"
-                      alt="Bloom App Preview" 
-                      className="w-full h-auto rounded-2xl shadow-2xl"
+                      src="images/Bloom_Cover.jpg"
+                      alt="Bloom Cover" 
+                      className="w-full h-full object-cover"
                     />
+                    <motion.div 
+                      className="absolute top-4 right-4 z-20"
+                      initial={{ opacity: 0, scale: 0.8, rotate: 15 }}
+                      animate={{ opacity: 1, scale: 1.3, rotate: 15 }}
+                      whileHover={{ scale: 1.5 }}
+                      transition={{ duration: 0.6, delay: 0.7 }}
+                    >
+                      
+                      <img 
+                        src="/images/Bloom_NY-Product-Design-Awards.png" 
+                        alt="NY Product Design Awards" 
+                        className="h-20 object-contain drop-shadow-lg"
+                        onClick={() => window.open('https://nydesignawards.com/winner-info.php?id=1880', '_blank')}
+                      />
+                    </motion.div>
                   </motion.div>
                   {/* Adjusted decorative background elements */}
                   <div className="absolute -top-8 -right-8 w-48 h-48 rounded-full" 
@@ -225,10 +286,10 @@ const ProjectBloom = () => {
               <div className="mb-24">
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                   {[
-                    { title: 'Role', content: 'UI/UX Design, Design Strategy, User Research' },
+                    { title: 'Role', content: 'UI/UX Design, Design Strategy, User Research, Illustration, Motion Design' },
                     { title: 'Timeline', content: 'March 2022 - August 2022' },
-                    { title: 'Scope', content: 'Problem Framing, Concept Development, Validation' },
-                    { title: 'Tools', content: 'Figma' }
+                    { title: 'Scope', content: 'Problem Framing, Concept Development, Validation, Prototyping' },
+                    { title: 'Tools', content: 'Figma, Adobe Illustrator, Adobe After Effects' }
                   ].map((item, index) => (
                     <motion.div 
                       key={item.title}
@@ -305,9 +366,9 @@ const ProjectBloom = () => {
             >
               <div className="rounded-xl overflow-hidden shadow-lg">
                 <img 
-                  src="/src/images/Bloom_Storyboard.jpg"
-                  alt="Storyboard showing Lucy saving her plant with BLOOM"
-                  className="w-full h-auto"
+                  src="images/Bloom_Storyboard.jpg"
+                  alt="Bloom Storyboard" 
+                  className="w-full h-full object-cover"
                 />
               </div>
               <p 
@@ -341,7 +402,7 @@ const ProjectBloom = () => {
                 {
                   name: 'Robert Novak, 78',
                   title: 'The Expert Gardener',
-                  image: '/src/images/Bloom_Robert.jpg',
+                  image: 'images/Bloom_Robert.jpg',
                   description: 'A retired pilot, Robert has a lifetime of gardening experience but finds modern technology daunting.',
                   painPoints: [
                     'Intimidated by complex apps',
@@ -355,7 +416,7 @@ const ProjectBloom = () => {
                 {
                   name: 'Mary Connor, 27',
                   title: 'The New Gardener',
-                  image: '/src/images/Bloom_Mary.jpg',
+                  image: 'images/Bloom_Mary.jpg',
                   description: 'A graduate student with a new home and garden, Mary is eager to learn but overwhelmed by conflicting online information.',
                   painPoints: [
                     'Struggles with overly wordy instructions online',
@@ -369,7 +430,7 @@ const ProjectBloom = () => {
                 {
                   name: 'Iris Lum, 55',
                   title: 'The Passionate Experimenter',
-                  image: '/src/images/Bloom_Iris.jpg',
+                  image: 'images/Bloom_Iris.jpg',
                   description: 'A nurse with a few years of gardening experience, Iris is redesigning her garden and looking for inspiration.',
                   painPoints: [
                     'Limited time to research gardening ideas',
@@ -677,11 +738,11 @@ const ProjectBloom = () => {
             </h2>
 
             {/* Detailed features with alternating layout */}
-            <div className="space-y-20">
+            <div className="space-y-12 mb-12">
               {[
                 {
                   title: 'Onboarding',
-                  image: '/src/images/Bloom_1_onboarding.gif',
+                  image: 'images/Bloom_1_onboarding.gif',
                   description: 'Quick and easy access to start your gardening journey',
                   features: [
                     'Simple sign-up process for quick access',
@@ -691,7 +752,7 @@ const ProjectBloom = () => {
                 },
                 {
                   title: 'Personalization',
-                  image: '/src/images/Bloom_2_personalization.gif',
+                  image: 'images/Bloom_2_personalization.gif',
                   description: 'Tailored experience based on your gardening expertise',
                   features: [
                     'Customize settings based on gardening experience',
@@ -701,7 +762,7 @@ const ProjectBloom = () => {
                 },
                 {
                   title: 'Browsing and Tab Switching',
-                  image: '/src/images/Bloom_3_browsing.gif',
+                  image: 'images/Bloom_3_browsing.gif',
                   description: 'Effortless navigation through gardening content',
                   features: [
                     'Browse trending and nearby content easily',
@@ -711,28 +772,28 @@ const ProjectBloom = () => {
                 },
                 {
                   title: 'Search Ideas',
-                  image: '/src/images/Bloom_4_interaction.gif',
+                  image: 'images/Bloom_4_interaction.gif',
                   description: 'Discover gardening inspiration with ease',
                   features: [
-                    'Quick image search using popular keywords',
-                    'Endless scrolling for uninterrupted discovery',
-                    'Smooth, non-staggered layout for easy reading'
+                    'Browse and subscribe to posts from other gardeners',
+                    'Like, comment, and share posts easily',
+                    'Save favorite content for future reference'
                   ]
                 },
                 {
                   title: 'Content Interaction',
-                  image: '/src/images/Bloom_4_interaction.gif',
+                  image: 'images/Bloom_5_search.gif',
                   description: 'Engage with the gardening community',
                   features: [
-                    'Like, comment, and share posts easily',
-                    'Save favorite content for future reference',
-                    'Browse and subscribe to posts from other gardeners'
+                    'Quick image search using popular keywords',
+                    'Endless scrolling for uninterrupted discovery',
+                    'Smooth, non-staggered layout for easy reading'
 
                   ]
                 },
                 {
                   title: 'Gardening Record Keeping',
-                  image: '/src/images/Bloom_5_record.gif',
+                  image: 'images/Bloom_6_record.gif',
                   description: 'Track and maintain your garden progress',
                   features: [
                     'Track watering, sunlight, and plant status',
@@ -743,7 +804,7 @@ const ProjectBloom = () => {
               ].map((feature, index) => (
                 <React.Fragment key={feature.title}>
                   <motion.div
-                    className={`grid grid-cols-1 lg:grid-cols-2 gap-16 items-center ${
+                    className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
                       index % 2 === 1 ? 'lg:flex-row-reverse' : ''
                     }`}
                     variants={cardVariants}
@@ -752,7 +813,7 @@ const ProjectBloom = () => {
                     viewport={{ once: true }}
                   >
                     {/* Text Content */}
-                    <div className="space-y-6">
+                    <div className="space-y-6 flex flex-col justify-center">
                       <div>
                         <h3 className="text-2xl font-semibold mb-3" style={{ color: THEME.text }}>
                           {feature.title}
@@ -792,7 +853,7 @@ const ProjectBloom = () => {
                     <div className={`relative rounded-xl overflow-hidden ${
                       index % 2 === 1 ? 'lg:order-first' : ''
                     }`}>
-                      <div className="aspect-[9/16]">
+                      <div className="style={{ maxHeight: '700px', height: 'auto' }}">
                         <img 
                           src={feature.image}
                           alt={feature.title}
@@ -842,7 +903,7 @@ const ProjectBloom = () => {
               {[
                 {
                   title: 'Ideation & Wireframing',
-                  image: '/src/images/Bloom_Wireframe.jpg',
+                  image: 'images/Bloom_Wireframe.jpg',
                   content: 'Using storyboarding and paper wireframes, I visualized user journeys, ensuring BLOOM addressed key user needs.',
                   steps: [
                     'User journey mapping',
@@ -852,7 +913,7 @@ const ProjectBloom = () => {
                 },
                 {
                   title: 'Digital Prototypes & Testing',
-                  image: '/src/images/Bloom_low-fid-export.png',
+                  image: 'images/Bloom_low-fid-export.png',
                   content: 'Created low-fidelity digital wireframes to refine layout and interactions, developed interactive prototypes for usability testing.',
                   steps: [
                     'Low-fidelity wireframes',
@@ -862,7 +923,7 @@ const ProjectBloom = () => {
                 },
                 {
                   title: 'High-Fidelity Design',
-                  image: '/src/images/Bloom_high-fid.png',
+                  image: 'images/Bloom_high-fid.png',
                   content: 'Developed polished, detailed designs with refined interactions and visual elements for a cohesive user experience.',
                   steps: [
                     'Detailed UI components',
@@ -881,11 +942,11 @@ const ProjectBloom = () => {
                   viewport={{ once: true }}
                   custom={index}
                 >
-                  <div className="w-full aspect-square">
+                  <div className="w-full aspect-[4/3] mb-6">
                     <img 
                       src={phase.image}
                       alt={phase.title}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-contain transform hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   <div className="p-6">
@@ -921,9 +982,9 @@ const ProjectBloom = () => {
                 viewport={{ once: true }}
               >
                 <img 
-                  src="/src/images/Bloom_Flow_Chart.png"
-                  alt="BLOOM User Experience Flow Diagram"
-                  className="w-full h-auto"
+                  src="images/Bloom_Flow_Chart.png"
+                  alt="Bloom Flow Chart" 
+                  className="w-full h-full object-cover"
                 />
               </motion.div>
             </div>
@@ -990,9 +1051,9 @@ const ProjectBloom = () => {
                   viewport={{ once: true }}
                 >
                   <img 
-                    src="/src/images/Bloom_Style_Guide.png"
-                    alt="BLOOM Style Guide showing color palette, typography, and design elements"
-                    className="w-full h-auto"
+                    src="images/Bloom_Style_Guide.png"
+                    alt="Bloom Style Guide" 
+                    className="w-full h-full object-cover"
                   />
                 </motion.div>
               </div>
@@ -1025,6 +1086,9 @@ const ProjectBloom = () => {
                 BLOOM marked a turning point in my design journey—my first time applying the full design thinking process and building a complete design system. It allowed me to bridge my background in landscape design with UX, using gardening as a way to connect people through shared experiences and practical knowledge.
               </motion.p>
 
+              <h2 className="text-3xl font-bold mb-12" style={{ color: THEME.text }}>
+              Why this project
+              </h2>
               <motion.p 
                 className="text-xl leading-relaxed"
                 style={{ color: THEME.text }}

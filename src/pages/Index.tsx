@@ -1,10 +1,11 @@
 import React, { useRef, useEffect, useState } from 'react';
 import WipeableImage from '../components/WipeableImage';
 import Navigation from '../components/Navigation';
-import About from '../components/About';
 import Projects from '../components/Projects';
+import OutsideOfWork from '../components/OutsideOfWork';
 import Footer from '../components/Footer';
 import FireworkEffect from '../components/FireworkEffect';
+import { Link } from 'react-router-dom';
 
 const Index: React.FC = () => {
   const heroSectionRef = useRef<HTMLElement>(null);
@@ -46,7 +47,7 @@ const Index: React.FC = () => {
                 <div className="space-y-4">
                   <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold relative text-white">
                     <span className="inline-block animate-slide-up opacity-0" style={{ animationDelay: '0.4s', animationFillMode: 'forwards' }}>
-                      👋 Hi there,
+                      Hi there
                     </span>
                     <br />
                     <span className="inline-block animate-slide-up opacity-0 bg-clip-text text-transparent bg-gradient-to-r from-pink-500 via-purple-500 to-blue-500" 
@@ -55,31 +56,33 @@ const Index: React.FC = () => {
                     </span>
                     <br />
                     <br />
-                    <span className="inline-block animate-slide-up opacity-0" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
-                      I design
-                    </span>
-                    {' '}
-                    <span className="inline-block animate-slide-up opacity-0 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500" 
-                          style={{ animationDelay: '1.0s', animationFillMode: 'forwards' }}>                      
+                    <div className="text-2xl md:text-4xl lg:text-5xl">
+                      <span className="inline-block animate-slide-up opacity-0" style={{ animationDelay: '0.8s', animationFillMode: 'forwards' }}>
+                        I design
+                      </span>
+                      {' '}
+                      <span className="inline-block animate-slide-up opacity-0 bg-clip-text text-transparent bg-gradient-to-r from-green-400 to-blue-500" 
+                            style={{ animationDelay: '1.0s', animationFillMode: 'forwards' }}>                      
                         fun
-                      <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-blue-500 transform scale-x-0 animate-scale-in" 
-                            style={{ animationDelay: '1.2s', transformOrigin: 'left' }}></span>
-                    </span>
-                    {' '}
-                    <span className="inline-block animate-slide-up opacity-0" style={{ animationDelay: '1.4s', animationFillMode: 'forwards' }}>
-                      and
-                    </span>
-                    {' '}
-                    <span className="inline-block animate-slide-up opacity-0 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-pink-500" 
-                          style={{ animationDelay: '1.6s', animationFillMode: 'forwards' }}>  
-                      engaging
-                      <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-pink-500 transform scale-x-0 animate-scale-in" 
-                            style={{ animationDelay: '1.8s', transformOrigin: 'left' }}></span>
-                    </span>
-                    {' '}
-                    <span className="inline-block animate-slide-up opacity-0" style={{ animationDelay: '2.0s', animationFillMode: 'forwards' }}>
-                      experiences
-                    </span>
+                        <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-green-400 to-blue-500 transform scale-x-0 animate-scale-in" 
+                              style={{ animationDelay: '1.2s', transformOrigin: 'left' }}></span>
+                      </span>
+                      {' '}
+                      <span className="inline-block animate-slide-up opacity-0" style={{ animationDelay: '1.4s', animationFillMode: 'forwards' }}>
+                        and
+                      </span>
+                      {' '}
+                      <span className="inline-block animate-slide-up opacity-0 bg-clip-text text-transparent bg-gradient-to-r from-yellow-400 to-pink-500" 
+                            style={{ animationDelay: '1.6s', animationFillMode: 'forwards' }}>  
+                        engaging
+                        <span className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-yellow-400 to-pink-500 transform scale-x-0 animate-scale-in" 
+                              style={{ animationDelay: '1.8s', transformOrigin: 'left' }}></span>
+                      </span>
+                      {' '}
+                      <span className="inline-block animate-slide-up opacity-0" style={{ animationDelay: '2.0s', animationFillMode: 'forwards' }}>
+                        experiences.
+                      </span>
+                    </div>
                   </h1>
                 </div>
                 <p className="text-lg md:text-xl text-gray-300 max-w-xl mb-8 animate-fade-in" style={{ animationDelay: '2.2s' }}>
@@ -118,8 +121,10 @@ const Index: React.FC = () => {
           />
         </section>
         
-        <About />
         <Projects />
+        <section id="outside-work">
+          <OutsideOfWork />
+        </section>
       </main>
       
       <Footer />
